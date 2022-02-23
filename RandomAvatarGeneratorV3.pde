@@ -47,16 +47,14 @@ void setup() {
       numberOfCurrentLetterFiles++; 
     }
     pastFileChar = currentFileChar;
-    fileNames[indexOfCurrentLetterArray][numberOfCurrentLetterFiles-1] = files[i].getName();
+    fileNames[indexOfCurrentLetterArray][numberOfCurrentLetterFiles-1] = files[i].getName(); // Loading file names into a 2d array
   }
   
   
-  for(int i = 0; i < 26; i++) {
+  for(int i = 0; i < 26; i++) { // Very last file has issues, so entering it manually 
     if(alphabetCountExists[i]) numberOfLetters++;
   }
   fileNames[numberOfLetters-1][alphabetCount[numberOfLetters-1]-1] = files[numberOfFiles-1].getName();
-  
-  println(fileNames[2][6]);
 }
 
 void draw() {}
@@ -76,22 +74,8 @@ void keyPressed() {
   }
   
   if(key=='a'||key=='A'){
-    for(int i = 0; i < alphabetCount.length; i++) {    
-      if (alphabetCountExists[i] == true){
-        for(int j = 0; j < alphabetCount[i]; j++) {
-          for(int k = 0; k < alphabetCount.length; k++) {    
-            if (alphabetCountExists[k] == true){
-              int randomSelector = j;
-              int currentCharCode = 97+k;
-              char alphabetChar = char(currentCharCode);
-              PImage aImage = loadImage("input\\" + alphabetChar + nf((randomSelector + 1), 3) + ".png");
-              image(aImage, 0, 0);
-            }    
-          }
-        saveFrame("output\\composite" + nf(headCount, 6) + ".png");
-        }
-      }
-    }
+    PImage aImage = loadImage(fileNames[0][0]);
+    image(aImage, 0, 0);
   }
   
   if(key=='s'||key=='S') {
