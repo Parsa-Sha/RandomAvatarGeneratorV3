@@ -15,6 +15,8 @@ char currentFileChar;
 char pastFileChar;
 int numberOfCurrentLetterFiles = 0;
 int indexOfCurrentLetterArray = 0;
+int numberOfLetters = 0;
+String fileNames[][] = new String [26][100];
 
 void setup() {
   size(600, 850);
@@ -45,7 +47,16 @@ void setup() {
       numberOfCurrentLetterFiles++; 
     }
     pastFileChar = currentFileChar;
+    fileNames[indexOfCurrentLetterArray][numberOfCurrentLetterFiles-1] = files[i].getName();
   }
+  
+  
+  for(int i = 0; i < 26; i++) {
+    if(alphabetCountExists[i]) numberOfLetters++;
+  }
+  fileNames[numberOfLetters-1][alphabetCount[numberOfLetters-1]-1] = files[numberOfFiles-1].getName();
+  
+  println(fileNames[2][6]);
 }
 
 void draw() {}
