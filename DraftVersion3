@@ -81,24 +81,22 @@ void keyPressed() {
  
   if(key=='a'||key=='A'){
     background(128);
-    
-    
-    
     // Making the array
     int currentSelection[] = new int[26];
     int allCombinations[][] = new int[possibleCombinations][numberOfLetters];
     int clearedCombinations = 0;
-    for(int j = 0; j < possibleCombinations; j++){
+    for(int j = 0; j < possibleCombinations; j++){ // Finishes when All Combinations have been discovered
       
-      while(true){ // Will not release until different combination is found
+      while(true){ // Will break when combination is found, and cleared the checking process
         for(int i = 0; i < numberOfLetters; i++){ // Writing Current Random
           currentSelection[i] = floor(random(alphabetCount[i]));
         }
-        for(int i = 0; i < possibleCombinations; i++){ // Comparing to past combinations
+        
+        for(int i = 0; i < j; i++){ // Comparing to past combinations, j is number combinations what have been locked
           if(currentSelection!=allCombinations[i]) clearedCombinations++;
         }
         
-        if(clearedCombinations==possibleCombinations) {
+        if(clearedCombinations==j) {
           clearedCombinations = 0;
           break;
         }
@@ -107,13 +105,12 @@ void keyPressed() {
       for(int i = 0; i < numberOfLetters; i++){
         int currentInt = i+97;
         char currentChar = char(currentInt);
-        PImage aImage = loadImage(currentChar+nf(currentSelection[i], 3) + ".png");
+        PImage aImage = loadImage("input\\"+currentChar+nf(currentSelection[i], 3) + ".png");
         image(aImage, 0, 0);
       }
       saveFrame("output\\composite" + nf(headCount, 6) + ".png");
     }
   }
-  
   
   if(key=='s'||key=='S') {
     saveFrame("output\\composite" + nf(headCount, 6) + ".png");
