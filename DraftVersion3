@@ -83,26 +83,15 @@ void keyPressed() {
     // Making the array
     int currentSelection[] = new int[26];
     int allCombinations[][] = new int[possibleCombinations][numberOfLetters];
-    int clearedCombinations = 0;
     for(int j = 0; j < possibleCombinations; j++){ // Finishes when All Combinations have been discovered
       background(128);  
       while(true){ // Will break when combination is found, and cleared the checking process
         for(int i = 0; i < numberOfLetters; i++){ // Writing Current Random
           currentSelection[i] = floor(random(alphabetCount[i]));
         }
-       // println(currentSelection[0]+" "+currentSelection[1]+" "+currentSelection[2]);
-        
-        for(int i = 0; i < j; i++){ // Comparing to past combinations; j = number of written combinations
-          if(currentSelection!=allCombinations[i]) {
-            clearedCombinations++;
-          }
-        }
-        
-        if(clearedCombinations>=j) { // Cleared j combinations
-          println(clearedCombinations); // ERROR HERE
+        if(ifArraysAreEqualOfAll(currentSelection, allCombinations, numberOfLetters)) { // Cleared j combinations
           break;
         }
-        clearedCombinations = 0;
       }
       
       for(int i = 0; i < numberOfLetters; i++){
@@ -113,6 +102,7 @@ void keyPressed() {
         allCombinations[j] = currentSelection;
       }
       saveFrame("output\\composite" + nf(headCount, 6) + ".png");
+      headCount++;
     }
   }
   
@@ -125,4 +115,18 @@ void keyPressed() {
     fill(255);
     text("Image Saved.", width/2, height/2 + 10);
   }
+}
+
+boolean ifArraysAreEqual(int array1[], int array2[]){
+  int cleared = 0;
+  for(int i = 0; i < array2.length; i++) if(array1[i]==array2[i]) cleared++;
+  if(cleared == array2.length) return true;
+  return false;
+}
+
+boolean ifArraysAreEqualOfAll(int array1[], int array2[][], int filledRows){
+  int arraysCleared = 0;
+  for(int i = 0; i < filledRows; i++) if(ifArraysAreEqual(array1, array2[i])) arraysCleared++;
+  if(arraysCleared == filledRows) return true;
+  return false;
 }
